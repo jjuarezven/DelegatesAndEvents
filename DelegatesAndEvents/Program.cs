@@ -3,7 +3,7 @@
 namespace DelegatesAndEvents
 {
     // 1 Declaration
-    public delegate int WorkPerformedHandler(int hours, WorkType workType);
+
     class Program
     {
         static void Main(string[] args)
@@ -14,35 +14,55 @@ namespace DelegatesAndEvents
             WorkPerformedHandler del3 = new WorkPerformedHandler(WorkPerformed3);
 
             del1 += del2 + del3;
-            int totalHours = del1(5, WorkType.Golf);
+            int totalHours = del1(null, new WorkPerformedEventArgs(5, WorkType.Golf));
+            //int totalHours = del1(5, WorkType.Golf);
             // totalHours get the value of the last invoked delegate
             Console.WriteLine(totalHours);
             //DoWork(del2);
+
+            // events demonstration
+            var sample = new Worker();
+            sample.DoWork(5, WorkType.GenerateReports);
             Console.Read();
         }
 
         private static void DoWork(WorkPerformedHandler del)
         {
             // 3 Invocation
-            del(8, WorkType.GenerateReports);
+            del(null, new WorkPerformedEventArgs(8, WorkType.GenerateReports));
         }
 
-        static int WorkPerformed1(int hours, WorkType workType)
+        //static int WorkPerformed1(int hours, WorkType workType)
+        //{
+        //    Console.WriteLine($"WorkPerformed1 called: {hours}");
+        //    return hours + 1;
+        //}
+        static int WorkPerformed1(object sender, WorkPerformedEventArgs eventArgs)
         {
-            Console.WriteLine($"WorkPerformed1 called: {hours}");
-            return hours + 1;
+            Console.WriteLine($"WorkPerformed1 called: {eventArgs.Hours}");
+            return eventArgs.Hours + 1;
         }
 
-        static int WorkPerformed2(int hours, WorkType workType)
+        //static int WorkPerformed2(int hours, WorkType workType)
+        //{
+        //    Console.WriteLine($"WorkPerformed2 called: {hours}");
+        //    return hours + 2;
+        //}
+        static int WorkPerformed2(object sender, WorkPerformedEventArgs eventArgs)
         {
-            Console.WriteLine($"WorkPerformed2 called: {hours}");
-            return hours + 2;
+            Console.WriteLine($"WorkPerformed2 called: {eventArgs.Hours}");
+            return eventArgs.Hours + 2;
         }
 
-        static int WorkPerformed3(int hours, WorkType workType)
+        //static int WorkPerformed3(int hours, WorkType workType)
+        //{
+        //    Console.WriteLine($"WorkPerformed3 called: {hours}");
+        //    return hours + 3;
+        //}
+        static int WorkPerformed3(object sender, WorkPerformedEventArgs eventArgs)
         {
-            Console.WriteLine($"WorkPerformed3 called: {hours}");
-            return hours + 3;
+            Console.WriteLine($"WorkPerformed3 called: {eventArgs.Hours}");
+            return eventArgs.Hours + 3;
         }
     }
 
