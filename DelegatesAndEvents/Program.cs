@@ -2,6 +2,7 @@
 
 namespace DelegatesAndEvents
 {
+    public delegate int BizRulesDelegate(int x, int y);
     // 1 Declaration
 
     class Program
@@ -31,6 +32,12 @@ namespace DelegatesAndEvents
             worker.WorkPerformed += (s, e) => Console.WriteLine($"Hours worked: {e.Hours} {e.WorkType}");
             worker.WorkCompleted += Worker_WorkCompleted;
             worker.DoWork(5, WorkType.GenerateReports);
+
+            BizRulesDelegate addDel = (x, y) => x + y;
+            BizRulesDelegate multiplyDel = (x, y) => x * y;
+            var data = new ProcessData();
+            data.Process(3, 2, multiplyDel);
+
             Console.Read();
         }
 
