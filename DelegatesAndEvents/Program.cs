@@ -22,7 +22,10 @@ namespace DelegatesAndEvents
 
             // events demonstration
             var worker = new Worker();
-            worker.WorkPerformed += Worker_WorkPerformed;
+            worker.WorkPerformed += delegate (object sender, WorkPerformedEventArgs e)
+                                   {
+                                       Console.WriteLine($"Hours worked: {e.Hours} {e.WorkType}");
+                                   };
             worker.WorkCompleted += Worker_WorkCompleted;
             worker.DoWork(5, WorkType.GenerateReports);
             Console.Read();
