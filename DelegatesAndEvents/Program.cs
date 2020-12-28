@@ -22,10 +22,13 @@ namespace DelegatesAndEvents
 
             // events demonstration
             var worker = new Worker();
-            worker.WorkPerformed += delegate (object sender, WorkPerformedEventArgs e)
-                                   {
-                                       Console.WriteLine($"Hours worked: {e.Hours} {e.WorkType}");
-                                   };
+            // using anonymous method
+            //worker.WorkPerformed += delegate (object sender, WorkPerformedEventArgs e)
+            //                       {
+            //                           Console.WriteLine($"Hours worked: {e.Hours} {e.WorkType}");
+            //                       };
+            // using lambda expressions
+            worker.WorkPerformed += (s, e) => Console.WriteLine($"Hours worked: {e.Hours} {e.WorkType}");
             worker.WorkCompleted += Worker_WorkCompleted;
             worker.DoWork(5, WorkType.GenerateReports);
             Console.Read();
