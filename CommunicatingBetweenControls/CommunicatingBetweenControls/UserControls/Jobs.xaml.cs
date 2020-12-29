@@ -42,7 +42,8 @@ namespace CommunicatingBetweenControls.UserControls
 
         private void JobsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            
+            // executes the event
+            Mediator.GetInstance().OnJobChanged(this, (Job)JobsComboBox.SelectedItem);
         }
     }
 }
