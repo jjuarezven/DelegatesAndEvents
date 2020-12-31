@@ -23,16 +23,17 @@ namespace ThreadsAndDelegates
             Application.Run(new DirectorySearcherForm());
         }
 
-        private void directorySearcher_SearchComplete(object sender, System.EventArgs e)
-        {
-            SearchLabel.Text = string.Empty;
-        }
-
         private void SearchButton_Click_1(object sender, EventArgs e)
         {
             directorySearcher.SearchCriteria = searchText.Text;
             SearchLabel.Text = "Searching...";
             directorySearcher.BeginSearch();
+            directorySearcher.SearchComplete += DirectorySearcher_SearchComplete;
+        }
+
+        private void DirectorySearcher_SearchComplete(object sender, EventArgs e)
+        {
+            SearchLabel.Text = "Searching finished!";
         }
     }
 }
